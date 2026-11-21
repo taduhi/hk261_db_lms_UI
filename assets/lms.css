@@ -1,0 +1,169 @@
+@import url("fonts/be-vietnam-pro.css");
+
+/*
+  Lớp giao diện của LMS_UI đặt trên theme Boost của Moodle (assets/moodle/boost.css).
+  Màu: navy cho thanh điều hướng, xanh Bách Khoa chỉ cho hành động chính và tab đang chọn.
+  Chữ: Be Vietnam Pro (đủ dấu tiếng Việt). Một độ bo góc 4px cho mọi thành phần.
+*/
+:root {
+  --lms-navy: #0b3a6f;
+  --lms-blue: #0b5cab;
+  --lms-blue-dark: #084a8c;
+  --lms-ink: #1c2733;
+  --lms-muted: #5b6876;
+  --lms-line: #d9dfe7;
+  --lms-field: #b8c2cf;
+  --lms-head: #eef2f7;
+  --lms-page: #f3f5f8;
+
+  --bs-primary: #0b5cab;
+  --bs-primary-rgb: 11, 92, 171;
+  --bs-link-color: #0b5cab;
+  --bs-link-color-rgb: 11, 92, 171;
+  --bs-link-hover-color: #084a8c;
+  --bs-link-hover-color-rgb: 8, 74, 140;
+  --bs-body-color: #1c2733;
+  --bs-border-color: #d9dfe7;
+  --bs-border-radius: 4px;
+  --bs-border-radius-sm: 3px;
+  --bs-border-radius-lg: 4px;
+  --bs-font-sans-serif: "Be Vietnam Pro", "Noto Sans", system-ui, sans-serif;
+}
+
+body {
+  background: var(--lms-page);
+  color: var(--lms-ink);
+  font-family: "Be Vietnam Pro", "Noto Sans", system-ui, sans-serif;
+  font-size: .9375rem;
+  line-height: 1.55;
+}
+.btn, input, select, textarea, .form-control, .form-select { font-family: inherit; }
+:focus-visible { outline: 2px solid var(--lms-blue); outline-offset: 2px; }
+.hidden { display: none !important; }
+.muted { color: var(--lms-muted); font-size: .875rem; }
+.text-muted { color: var(--lms-muted) !important; }
+
+/* Thanh điều hướng */
+#page-wrapper { padding-top: 0; }
+.navbar.bg-body { background-color: var(--lms-navy) !important; border-bottom: 0; }
+.navbar .navbar-brand { color: #fff; font-weight: 600; letter-spacing: .01em; }
+.navbar .nav-link, .navbar .userfirstname, .navbar .navbar-text, .navbar .dropdown-toggle { color: rgba(255, 255, 255, .82); }
+.navbar .nav-link:hover, .navbar .dropdown-toggle:hover { color: #fff; }
+.navbar .primary-navigation .nav-link.active { color: #fff; border-bottom-color: #fff; }
+.navbar .userinitials { background: rgba(255, 255, 255, .16); color: #fff; }
+.navbar .dropdown-toggle::after {
+  content: ""; display: inline-block; width: 6px; height: 6px; margin: 0 0 3px .5rem; padding: 0;
+  font-family: inherit; vertical-align: middle; border: solid rgba(255, 255, 255, .82); border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+.navbar-text { align-self: center; }
+.dropdown-menu.show { display: block; }
+.dropdown-item { font-size: .9rem; }
+
+/* Khung nội dung */
+.drawers .main-inner, body.limitedwidth #page.drawers .main-inner {
+  max-width: 1120px; padding: 1.75rem 2.25rem 2.25rem; background: #fff;
+  border: 1px solid var(--lms-line); border-radius: 4px;
+}
+body.limitedwidth #page.drawers .footer-popover { max-width: 1120px; background: transparent !important; }
+#page-footer .footer-content-popover { padding-left: 0; }
+
+/* Tiêu đề trang */
+#page-header, .header-maxwidth { max-width: none !important; margin: 0 0 .5rem !important; }
+#page-header h1 { font-size: 1.625rem; font-weight: 600; letter-spacing: -.01em; color: var(--lms-navy); }
+.breadcrumb { font-size: .85rem; margin-bottom: .5rem; }
+.breadcrumb a { color: var(--lms-muted); }
+.breadcrumb-item.active { color: var(--lms-ink); }
+.meta { display: flex; flex-wrap: wrap; gap: .25rem 2rem; margin: .5rem 0 0; font-size: .9rem; }
+.meta dt { display: inline; font-weight: 400; color: var(--lms-muted); margin-right: .4rem; }
+.meta dd { display: inline; margin: 0; font-weight: 500; }
+
+/* Thanh tab của lớp học */
+.secondary-navigation { max-width: none; margin: 0 0 1.5rem; padding-bottom: 0; }
+.secondary-navigation .navigation { padding: 0; border-bottom: 1px solid var(--lms-line); background: transparent; }
+.secondary-navigation .navigation.secondarynav-tabbar { height: auto; }
+.secondary-navigation .moremenu { width: 100%; max-width: none; height: auto; overflow: visible; }
+.secondary-navigation .nav-tabs { max-width: none; margin: 0; border: 0; flex-wrap: wrap; background: transparent; }
+.secondary-navigation .navigation.secondarynav-tabbar .nav-item { height: 46px; }
+.secondary-navigation .moremenu .nav-link { height: 46px; padding: 0 1rem; color: var(--lms-muted); font-weight: 500; border-bottom: 3px solid transparent; }
+.secondary-navigation .moremenu .nav-link:hover { color: var(--lms-ink); }
+.secondary-navigation .moremenu .nav-link.active { color: var(--lms-blue); border-bottom-color: var(--lms-blue); background: transparent; }
+
+/* Vùng nội dung: các khối phẳng, ngăn cách bằng đường kẻ thay vì thẻ bo tròn */
+#region-main h2 { font-size: 1.0625rem; font-weight: 600; margin: 0 0 .75rem; padding-bottom: .5rem; border-bottom: 1px solid var(--lms-line); }
+#region-main h2.h3 { font-size: 1.25rem; border: 0; padding: 0; color: var(--lms-navy); }
+.card { background: transparent; border: 0; border-radius: 0; box-shadow: none; margin-bottom: 1.75rem !important; }
+.card > .card-body { padding: 0; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 2.5rem; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 2.5rem; }
+.actions { display: flex; gap: .5rem; flex-wrap: wrap; align-items: center; }
+.list-group-flush > .list-group-item { background: transparent; border-color: var(--lms-line); padding: .6rem 0; }
+.post { padding: .85rem 0; border-bottom: 1px solid var(--lms-line); }
+.post:last-child { border-bottom: 0; }
+.post h2 { border: 0; padding: 0; margin-bottom: .25rem; }
+
+/* Số liệu: dòng nhãn và giá trị, không dùng số lớn */
+.stats { max-width: 380px; margin-bottom: 1.75rem; }
+.kv { display: flex; justify-content: space-between; gap: 2rem; padding: .5rem 0; border-bottom: 1px solid var(--lms-line); }
+.kv strong { font-weight: 600; font-variant-numeric: tabular-nums; }
+.code { font-variant-numeric: tabular-nums; font-weight: 500; color: #3a4756; }
+.timer { font-variant-numeric: tabular-nums; font-weight: 600; color: var(--lms-navy); font-size: 1.75rem; }
+
+/* Bảng */
+.table-responsive { border: 1px solid var(--lms-line); border-radius: 4px; margin-bottom: 1.5rem; }
+.card .table-responsive:last-child { margin-bottom: 0; }
+.generaltable { margin: 0; font-size: .9rem; --bs-table-bg: transparent; }
+.generaltable thead th { background: var(--lms-head); font-weight: 600; color: var(--lms-ink); border-bottom: 1px solid #c5ced9; white-space: nowrap; padding: .65rem .85rem; }
+.generaltable td { padding: .6rem .85rem; border-color: var(--lms-line); vertical-align: middle; }
+.generaltable tbody tr:last-child td { border-bottom: 0; }
+.table-hover > tbody > tr:hover > * { --bs-table-hover-bg: #f6f8fb; }
+.table .btn, .actions .btn, .header-actions-container .btn { white-space: nowrap; }
+td .btn-link { font-weight: 500; }
+
+/* Nút và form */
+.btn { font-weight: 500; border-radius: 4px; padding: .45rem .95rem; }
+.btn-primary { --bs-btn-bg: #0b5cab; --bs-btn-border-color: #0b5cab; --bs-btn-hover-bg: #084a8c; --bs-btn-hover-border-color: #084a8c; --bs-btn-active-bg: #073f78; --bs-btn-active-border-color: #073f78; }
+.btn-secondary { --bs-btn-color: #1c2733; --bs-btn-bg: #fff; --bs-btn-border-color: #b8c2cf; --bs-btn-hover-color: #1c2733; --bs-btn-hover-bg: #f3f5f8; --bs-btn-hover-border-color: #9aa7b6; --bs-btn-active-bg: #e8edf3; --bs-btn-active-color: #1c2733; --bs-btn-active-border-color: #9aa7b6; }
+.btn-link { --bs-btn-color: #0b5cab; --bs-btn-hover-color: #084a8c; text-decoration: none; padding-top: .15rem; padding-bottom: .15rem; }
+.btn-link:hover { text-decoration: underline; }
+.btn-sm { padding: .25rem .6rem; font-size: .85rem; }
+.form-control, .form-select { border-color: var(--lms-field); border-radius: 4px; }
+.form-control:focus, .form-select:focus { border-color: var(--lms-blue); box-shadow: 0 0 0 3px rgba(11, 92, 171, .18); }
+.form-control:disabled { background: var(--lms-head); }
+.form-text { color: var(--lms-muted); font-size: .8125rem; }
+.mform .fitem { margin-bottom: 1rem; }
+.mform .col-form-label label { font-weight: 500; }
+.form-grid, .form-grid .full { display: block; }
+.form-actions { display: flex; gap: .5rem; flex-wrap: wrap; padding-left: 25%; margin-top: .5rem; }
+
+/* Nhãn trạng thái: nền nhạt, chữ đậm màu, không dùng màu bão hòa */
+.badge { font-weight: 500; font-size: .78rem; border-radius: 3px; padding: .3em .6em; }
+.badge.bg-success { background: #e1f1e8 !important; color: #1b6a41 !important; }
+.badge.bg-warning { background: #fcefd3 !important; color: #86520a !important; }
+.badge.bg-danger { background: #fae3e1 !important; color: #a3231b !important; }
+.badge.bg-secondary { background: #e6eaf0 !important; color: #3f4b59 !important; }
+
+/* Thông báo nhanh khi bấm nút chưa nối backend */
+.toast {
+  position: fixed; bottom: 20px; right: 20px; z-index: 2000; background: var(--lms-ink); color: #fff;
+  padding: .6rem 1rem; border-radius: 4px; opacity: 0; transition: opacity .2s; pointer-events: none;
+  max-width: 360px; font-size: .9rem;
+}
+.toast.show { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .toast { transition: none; } }
+
+@media (max-width: 767.98px) {
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  .form-actions { padding-left: 0; }
+  .drawers .main-inner, body.limitedwidth #page.drawers .main-inner { padding: 1.25rem 1rem 1.5rem; border-left: 0; border-right: 0; border-radius: 0; }
+}
+
+/* Ghi đè các quy tắc Moodle có độ ưu tiên cao hơn */
+.navbar .primary-navigation .nav-link { color: rgba(255, 255, 255, .82) !important; }
+.navbar .primary-navigation .nav-link:hover { color: #fff !important; }
+.navbar .primary-navigation .nav-link.active { color: #fff !important; border-bottom-color: #fff !important; }
+.secondary-navigation .navigation .nav-tabs { max-width: none; margin: 0; flex-wrap: wrap; }
+.card { --bs-card-bg: transparent; --bs-card-cap-bg: transparent; background-color: transparent !important; }
+#page-header { padding: 0 !important; }
+.generaltable td.nowrap { white-space: nowrap; }
+#page-content, #region-main-box, #region-main { background: transparent !important; }
