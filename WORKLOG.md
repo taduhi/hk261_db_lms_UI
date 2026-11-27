@@ -48,3 +48,13 @@ Kiểm tra: `node --check` đạt; render thử 32/32 trang không có `undefine
 ## Lần 5 (2026-11-22) - đối chiếu bảng 32 công việc của nhóm
 Thiếu 7 mục nên đã bổ sung (thêm 6 trang mới, tổng 38 trang): chi tiết quiz có nút "Bắt đầu làm bài" (#6), trang chưa nộp và trang nộp thành công (#8, #10), sửa bài đăng diễn đàn (#15), sửa bài tập/quiz (#22), sửa lớp (#29), sửa người dùng (#31), lối vào chọn Lớp hoặc Người dùng ở trang tổng quan quản trị (#26).
 Kiểm tra: render 38/38 trang, 451 liên kết nội bộ hợp lệ.
+
+## Lần 6 (2026-11-27) - phiên bản theo vai trò, nâng cấp chuẩn BK-LMS thật và lưu trữ giả lập localStorage
+- Tách view sơ đồ nhà phát triển sang `sitemap.html`; `index.html` mở thẳng trang Đăng nhập (hoặc tự chuyển về trang chủ vai trò đang đăng nhập).
+- Xác thực tự nhận diện vai trò (Admin / Giảng viên / Sinh viên) kèm bảng tài khoản mẫu 1-click (`00001`, `00002`, `a.nguyen`, `b.tran`, `c.le`, `d.pham`, `f.do`, và `e.vo` ở trạng thái `Inactive` để test khóa tài khoản).
+- Phân quyền chặt (Route Guard) chặn chưa đăng nhập, chặn truy cập chéo vai trò và chặn truy cập lớp không thuộc tài khoản.
+- Toàn bộ CRUD, lọc, sắp xếp, chấm điểm, nộp bài/loại bỏ bài nộp, làm quiz đếm ngược, diễn đàn và đổi mật khẩu hồ sơ đều hoạt động thật qua `localStorage` kèm nút Khôi phục dữ liệu mẫu.
+- Nâng cấp giao diện & workflow bám sát BK-LMS (`lms.hcmut.edu.vn`): navbar xanh ngọc `#0388b4` + tab cobalt `#034ea2`, chuông thông báo động, ngăn Mục lục khóa học (Course Index Drawer), breadcrumb mũi tên xanh, tab khối bo góc, lưới 3 cột Course Card + chuyển đổi Thẻ/Bảng + sắp xếp, section thu gọn/mở rộng trong khóa học, hộp `Opened/Due` và bảng Trạng thái bài nộp pastel, báo cáo điểm kèm `Khoảng / Phần trăm / Σ Tổng khóa học`, hồ sơ multi-card.
+- Thay toàn bộ logo và avatar của cả 3 vai trò bằng ảnh `assets/cha-do.jpg` (từ `chá dò.jpg`).
+- Xóa thư mục rỗng thừa `hk261_db_lms_UI/hk261_db_lms_UI/`.
+- Kiểm tra: `node --check` đạt; render 39/39 trang, 929+ liên kết và kiểm tra toàn bộ ảnh nội bộ hợp lệ, 5/5 bài test phân quyền đạt (`0` lỗi).

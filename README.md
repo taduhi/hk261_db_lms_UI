@@ -1,62 +1,62 @@
 # LMS_UI
 
-Giao diện web tĩnh cho hệ thống quản lý học tập (LMS) của bài tập lớn 1, môn Hệ cơ sở dữ liệu (CO2013), Trường Đại học Bách khoa - ĐHQG-HCM. Giao diện dựa trên theme Boost của Moodle và bám theo lược đồ CSDL trong báo cáo của nhóm. Chưa có backend: dữ liệu là dữ liệu mẫu nằm trong `assets/app.js`.
+Giao diện web cho hệ thống quản lý học tập (LMS) môn Hệ cơ sở dữ liệu (CO2013), Trường Đại học Bách khoa - ĐHQG-HCM. Giao diện dựa trên theme Boost của Moodle 4, phân quyền đầy đủ theo 3 vai trò (**Quản trị viên**, **Giảng viên**, **Sinh viên**) và hỗ trợ tương tác giả lập lưu tạm trên `localStorage`.
 
-## Chạy thử
+## Chạy thử ở local
 
-Không cần cài đặt hay build. Mở trực tiếp `index.html` (sơ đồ tất cả trang) hoặc chạy một server tĩnh:
+Không cần cài đặt hay build. Chạy một server tĩnh trong thư mục này:
 
 ```bash
 python -m http.server 8080
-# mở http://127.0.0.1:8080/index.html
+# mở http://127.0.0.1:8080/
 ```
 
-Đăng nhập mẫu ở `login.html`: chọn vai trò rồi bấm Đăng nhập, không kiểm tra mật khẩu.
+- Mở `/` (`index.html`) sẽ vào thẳng màn hình **Đăng nhập** (hoặc tự chuyển về trang chủ vai trò nếu đang có phiên đăng nhập).
+- Sơ đồ trang dành cho nhà phát triển được chuyển sang `sitemap.html`.
+- Có nút **Khôi phục dữ liệu mẫu** ở menu tài khoản và chân trang để reset toàn bộ thay đổi trên `localStorage`.
+
+## Tài khoản đăng nhập mẫu
+
+Hệ thống tự nhận diện vai trò từ tên tài khoản / mã cán bộ:
+
+| Vai trò | Tài khoản / Mã cán bộ | Mật khẩu | Họ tên | Trạng thái & Phạm vi |
+|---|---|---|---|---|
+| Quản trị viên | `00001` | `Admin@123` | Quản trị viên 00001 | Active — Quản trị toàn hệ thống |
+| Quản trị viên | `00002` | `Admin@123` | Quản trị viên 00002 | Active — Quản trị toàn hệ thống |
+| Giảng viên | `a.nguyen` | `Lecturer@123` | Nguyễn Văn A (`00001`) | Active — Phụ trách `261A1`, `261A3` |
+| Giảng viên | `b.tran` | `Lecturer@123` | Trần Thị B (`00002`) | Active — Phụ trách `261A2`, `251A1` |
+| Sinh viên | `c.le` | `Student@123` | Lê Văn C (`240001`) | Active — Học `261A1`, `261A2`, `261A3` |
+| Sinh viên | `d.pham` | `Student@123` | Phạm Thị D (`240002`) | Active — Học `261A1`, `261A2`, `251A1` |
+| Sinh viên | `f.do` | `Student@123` | Đỗ Thị F (`240004`) | Active — Học `261A1`, `261A2`, `261A3` |
+| Sinh viên | `e.vo` | `Student@123` | Võ Văn E (`240003`) | **Inactive** — Dùng test chặn đăng nhập (có thể vào Admin mở khóa) |
 
 ## Cấu trúc
 
 ```
-index.html, login.html     sơ đồ trang, đăng nhập
+index.html, login.html     cổng đăng nhập (vào thẳng login / chuyển trang chủ theo role)
+sitemap.html               sơ đồ toàn bộ trang cho nhà phát triển
 admin/      9 trang        quản trị viên
 student/   14 trang        sinh viên
 lecturer/  13 trang        giảng viên
 assets/
-  app.js                   dữ liệu mẫu, khung trang, nội dung từng trang
-  lms.css                  kiểu dáng riêng (màu, chữ, bảng, form)
+  app.js                   dữ liệu mẫu, store localStorage, xác thực/phân quyền, nội dung từng trang
+  lms.css                  hệ thống giao diện BK-LMS đặt trên theme Boost
+  cha-do.jpg               ảnh logo hệ thống và avatar người dùng các vai trò
   moodle/boost.css         CSS rút gọn từ theme Boost của Moodle
   fonts/                   Be Vietnam Pro (hỗ trợ đủ dấu tiếng Việt)
 ```
 
-Mỗi file HTML chỉ có thẻ `<body data-role="..." data-page="...">` và nạp `assets/app.js`. `app.js` dựng trang theo khóa `vai trò/trang`.
+Mỗi file HTML chỉ chứa thẻ `<body data-role="..." data-page="..." data-root="...">` và nạp `assets/app.js`.
 
-## Các trang
+## Tính năng theo vai trò & Phân quyền
 
-| Vai trò | Trang |
-|---|---|
-| Quản trị viên | `dashboard`, `subjects`, `subject-create`, `courses`, `course-create`, `course-edit`, `users`, `user-create`, `user-edit` |
-| Sinh viên | `courses`, `course`, `materials`, `announcements`, `quizzes`, `quiz-intro`, `quiz`, `submit`, `submit-success`, `grades`, `forum`, `forum-post`, `forum-post-edit`, `profile` |
-| Giảng viên | `courses`, `course`, `members`, `materials`, `material-form`, `assignments`, `assignment-form`, `submissions`, `gradebook`, `grade-detail`, `forum`, `forum-post`, `forum-post-edit` |
-
-## Đối chiếu với lược đồ CSDL
-
-Trường và mã trong giao diện lấy từ lược đồ quan hệ của báo cáo (`NGUOI_DUNG`, `SINH_VIEN`, `GIANG_VIEN`, `SO_DIEN_THOAI`, `KHOA`, `MON_HOC`, `LOP_HOC`, `DUOC_PHAN_VAO`, `HOC_LIEU`, `THONG_BAO`, `FORUM`, `BAI_VIET`, `BAI_TAP`, `QUIZ`, `BAI_NOP`). Quy ước mã theo ràng buộc ngữ nghĩa: MSSV 6 số, mã giảng viên 5 số, mã môn `MT2013`, mã lớp `261A1`, thông báo `261A1TB1`, học liệu `261A1HL1`, forum `261A1FR1`, bài viết `261A1FR1_1`.
-
-Một vài chỗ lược đồ chưa đủ cho giao diện, nhóm cần chốt khi làm backend:
-
-- `BAI_VIET` chưa có cột người đăng, nhưng giao diện hiển thị tác giả.
-- Điểm của quan hệ "Thực hiện" (sinh viên - bài tập) chưa có chỗ lưu; cần bảng riêng `THUC_HIEN(MSSV, MaBaiTap, Diem)`.
-- `BAI_NOP` chưa biết sinh viên nào nộp; cần thêm `MSSV` vào khóa.
-- Chưa có nơi lưu số lần làm quiz của từng sinh viên.
-- Báo cáo chưa quy định mã bài tập; giao diện tạm dùng `261A1BT1`.
-
-## Nối backend
-
-- Dữ liệu mẫu nằm ở các hằng đầu `app.js` (`KHOA`, `SUBJECTS`, `CLASSES`, `USERS`, `ITEMS`, `MATERIALS`, `ANNOUNCEMENTS`, `POSTS`, `MEMBERS`, `SUBMISSIONS`). Thay bằng dữ liệu từ API.
-- Các trang chọn đối tượng qua tham số địa chỉ, ví dụ `student/submit.html?i=261A1BT3`, `admin/user-edit.html?u=c.le`.
-- Form có `data-goto` chuyển trang sau khi bấm lưu; các form và nút khác chỉ hiện thông báo vì chưa lưu dữ liệu. Gắn xử lý gửi dữ liệu ở sự kiện `submit` và `click` ở cuối `app.js`.
+- **Phân quyền (Route Guard)**: Chưa đăng nhập tự chuyển về `login.html`; truy cập sai vai trò hiển thị thông báo *Không có quyền truy cập*; truy cập lớp học không thuộc phạm vi của tài khoản sẽ bị chặn.
+- **Quản trị viên**: Dashboard thống kê động + nhật ký hoạt động, thêm khoa, tạo/sửa/xóa môn học, tạo lớp 2 bước / sửa / xóa lớp, tạo/sửa/khóa–mở khóa/xóa người dùng, tìm kiếm & lọc trực tiếp.
+- **Giảng viên**: Xem đúng các lớp phụ trách (`?c=<MaLop>`), quản lý học liệu & thông báo, tạo/sửa/xóa bài tập & quiz, chọn bài để chấm điểm (đồng bộ tức thì sang bảng điểm & điểm sinh viên), xem thành viên & chi tiết điểm từng sinh viên, tạo forum mới và quản lý bài viết.
+- **Sinh viên**: Xem đúng các lớp đang theo học kèm điểm trung bình động, xem thông báo & học liệu, làm bài quiz (đếm ngược tự nộp, kiểm tra số lần làm tối đa, tính điểm theo lần cao nhất/trung bình), nộp/nộp lại bài tập (tự xác định Đã nộp / Nộp trễ), xem bảng điểm, đăng/phản hồi/sửa bài diễn đàn của mình, cập nhật hồ sơ & đổi mật khẩu.
 
 ## Giấy phép và nguồn
 
-- `assets/moodle/boost.css` được rút gọn từ theme Boost của [Moodle](https://github.com/moodle/moodle) (GPL-3.0-or-later, xem `assets/moodle/COPYING.txt`) và Bootstrap 5.3 (MIT). Vì vậy kho này nên được phát hành theo giấy phép tương thích GPL.
+- `assets/moodle/boost.css` được rút gọn từ theme Boost của [Moodle](https://github.com/moodle/moodle) (GPL-3.0-or-later, xem `assets/moodle/COPYING.txt`) và Bootstrap 5.3 (MIT).
 - Font [Be Vietnam Pro](https://fonts.google.com/specimen/Be+Vietnam+Pro) theo SIL Open Font License 1.1.
 - Nhật ký các lần chỉnh sửa nằm ở `WORKLOG.md`.
